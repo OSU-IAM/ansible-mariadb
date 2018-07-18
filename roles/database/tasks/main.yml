@@ -16,3 +16,11 @@
   service:
     name: mariadb
     state: started
+
+- name: open ports in firewalld
+  firewalld:
+    port: "{{ item }}"
+    immediate: true
+    permanent: true
+    state: enabled
+  with_items: [ '3306/tcp' ]
