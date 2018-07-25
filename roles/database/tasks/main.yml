@@ -1,26 +1,4 @@
 ---
-- name: add MariaDB CentOS repo
-  yum_repository:
-    name: MariaDB
-    description: MariaDB CentOS repository
-    baseurl: http://yum.mariadb.org/10.2/centos7-amd64
-    gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
-    gpgcheck: yes
-
-- name: install MariaDB
-  yum:
-    name: [ 'MariaDB-server', 'MariaDB-client' ]
-    state: present
-
-- name: start MariaDB service
-  service:
-    name: mariadb
-    state: started
-
-- name: open ports in firewalld
-  firewalld:
-    port: "{{ item }}"
-    immediate: true
-    permanent: true
-    state: enabled
-  with_items: [ '3306/tcp' ]
+- import_tasks: install.yml
+- import_tasks: configure.yml
+- import_tasks: post_install.yml

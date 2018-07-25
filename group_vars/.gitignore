@@ -1,4 +1,5 @@
 # ignore all files in this directory
 *
-# ...except this one!
+# ...except these!
 !.gitignore
+!example-dist

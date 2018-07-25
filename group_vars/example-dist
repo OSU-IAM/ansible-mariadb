@@ -1,0 +1,4 @@
+---
+mariadb:
+  innodb_buffer_pool_size: changeme
+  max_allowed_packet: changeme

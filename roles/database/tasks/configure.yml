@@ -1,0 +1,8 @@
+---
+- name: copy over server.cnf from template
+  template:
+    src: server.cnf.j2
+    dest: /etc/my.cnf.d/server.cnf
+    owner: root
+    group: root
+    mode: 0644
