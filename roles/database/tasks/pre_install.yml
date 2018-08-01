@@ -1,0 +1,39 @@
+---
+- name: create primary partition for data
+  parted:
+    device: /dev/sdb
+    number: 1
+    flags: [ lvm ]
+    state: present
+
+- name: create db_data volume group
+  lvg:
+    vg: db_data
+    pvs: /dev/sdb1
+
+- name: create new logical volume
+  lvol:
+    vg: db_data
+    lv: data
+    size: 100g
+    state: present
+
+- name: create xfs filesystem
+  filesystem:
+    fstype: xfs
+    dev: /dev/db_data/data
+
+- name: create /data mount point
+  file:
+    path: /data
+    state: directory
+
+- name: mount filesystem partition
+  mount:
+    path: /data
+    src: /dev/mapper/db_data-data
+    fstype: xfs
+    dump: 1
+    passno: 2
+    state: mounted
+
