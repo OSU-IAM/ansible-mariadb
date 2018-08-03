@@ -4,8 +4,8 @@ mariadb:
   innodb_buffer_pool_size: changeme
   max_allowed_packet: changeme
 midpoint:
-  midpoint_host: brockmp-%.iam.oregonstate.edu
-  db_name: midpoint
-  db_username: midpoint
-  db_password: donkey52night
+  midpoint_host: %.changeme.com
+  db_name: changeme
+  db_username: changeme
+  db_password: changeme
   db_create_script_url: https://raw.githubusercontent.com/Evolveum/midpoint/v3.7.2/config/sql/_all/mysql-3.7-all.sql
