@@ -15,7 +15,7 @@
   lvol:
     vg: db_data
     lv: data
-    size: 100g
+    size: 99g
     state: present
 
 - name: create xfs filesystem
