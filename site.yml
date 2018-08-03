@@ -4,3 +4,4 @@
   remote_user: root
   roles:
     - database
+    - { role: midpoint, when: "'midpoint' in group_names" }

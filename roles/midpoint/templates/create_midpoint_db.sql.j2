@@ -1,0 +1,5 @@
+CREATE DATABASE {{ midpoint.db_name }} CHARACTER SET utf8 DEFAULT CHARACTER SET utf8 COLLATE utf8_bin DEFAULT COLLATE utf8_bin;
+CREATE USER '{{ midpoint.db_username }}'@'localhost' IDENTIFIED BY '{{ midpoint.db_password }}';
+GRANT ALL on {{ midpoint.db_name }}.* TO '{{ midpoint.db_username }}'@'localhost';
+CREATE USER '{{ midpoint.db_username }}'@'{{ midpoint.midpoint_host }}' IDENTIFIED BY '{{ midpoint.db_password }}';
+GRANT ALL on {{ midpoint.db_name }}.* TO '{{ midpoint.db_username }}'@'{{ midpoint.midpoint_host }}';
