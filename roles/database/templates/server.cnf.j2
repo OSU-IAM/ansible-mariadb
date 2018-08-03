@@ -10,8 +10,10 @@
 
 # this is only for the mysqld standalone daemon
 [mysqld]
-innodb_buffer_pool_size = {{ mariadb.innodb_buffer_pool_size }}
-max_allowed_packet = {{ mariadb.max_allowed_packet }}
+datadir={{ mariadb.datadir }}
+socket={{ mariadb.datadir }}/mysql.sock
+innodb_buffer_pool_size={{ mariadb.innodb_buffer_pool_size }}
+max_allowed_packet={{ mariadb.max_allowed_packet }}
 
 #
 # * Galera-related settings
@@ -35,6 +37,10 @@ max_allowed_packet = {{ mariadb.max_allowed_packet }}
 
 # this is only for embedded server
 [embedded]
+
+[client]
+port=3306
+socket={{ mariadb.datadir }}/mysql.sock
 
 # This group is only read by MariaDB servers, not by MySQL.
 # If you use the same .cnf file for MySQL and MariaDB,

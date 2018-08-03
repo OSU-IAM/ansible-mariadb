@@ -11,3 +11,29 @@
   yum:
     name: [ 'MariaDB-server', 'MariaDB-client' ]
     state: present
+
+- name: set 'init_datadir' flag to default value (true)
+  set_fact:
+    init_datadir: true
+
+- name: check if MariaDB datadir exists
+  command: ls -la {{ mariadb.datadir }}
+  register: datadir_check
+  ignore_errors: true
+  changed_when: false
+
+- name: set 'init_datadir' flag to false
+  set_fact:
+    init_datadir: false
+  when: datadir_check.rc == 0
+
+- name: create MariaDB datadir
+  file:
+    path: "{{ mariadb.datadir }}"
+    state: directory
+    owner: mysql
+    group: mysql
+
+- name: initialize MariaDB data directory
+  command: mysql_install_db --user=mysql --datadir={{ mariadb.datadir }}
+  when: init_datadir
