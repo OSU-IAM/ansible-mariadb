@@ -1,0 +1,41 @@
+---
+- name: set 'create_db' flag to default value
+  set_fact:
+    create_db: true
+
+- name: check if database already exists
+  command: mysql -e 'use {{ midpoint.db_name }}'
+  register: db_check
+  ignore_errors: yes
+  changed_when: false
+
+- name: set 'create_db' flag to false
+  set_fact:
+    create_db: false
+  when: db_check.rc == 0
+
+- name: generate create database script
+  template:
+    src: create_midpoint_db.sql.j2
+    dest: /tmp/create_midpoint_db.sql
+  when: create_db
+
+- name: run create db script
+  shell: mysql -h localhost < /tmp/create_midpoint_db.sql
+  when: create_db
+
+- name: get db setup script
+  get_url:
+    url: "{{ midpoint.db_create_script_url }}"
+    dest: /tmp/midpoint_mysql_setup.sql
+  when: create_db
+
+- name: run db setup script
+  shell: mysql -h localhost -u {{ midpoint.db_username }} --password={{ midpoint.db_password }} -D {{ midpoint.db_name }} < /tmp/midpoint_mysql_setup.sql
+  when: create_db
+
+# The following task is needed because there are credentials in the create db script
+- name: cleanup create db script
+  file:
+    path: /tmp/create_midpoint_db.sql
+    state: absent
