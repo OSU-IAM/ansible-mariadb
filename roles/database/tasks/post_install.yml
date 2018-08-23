@@ -11,3 +11,10 @@
     permanent: true
     state: enabled
   with_items: [ '3306/tcp' ]
+
+- name: create dir for backups
+  file:
+    path: "{{ mariadb.backupsdir }}"
+    state: directory
+    owner: mysql
+    group: mysql

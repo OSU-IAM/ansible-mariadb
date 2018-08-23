@@ -2,6 +2,8 @@
 
 An ansible playbook for MariaDB on CentOS 7
 
+This playbook is idempotent and is safe to run against running systems.
+
 ## Roles
 
 * `database` - a standalone MariaDB server
@@ -40,7 +42,10 @@ mariadb:
   datadir: /data/mysql
   innodb_buffer_pool_size: changeme
   max_allowed_packet: changeme
+  backupsdir: /data/backups
 ```
+
+* `backupsdir` - dir for database backup dumpfiles. **NOTE:** backups are configured on a per-role basis. The `midpoint` role is an example of how this can be done.
 
 ### Configuring a midPoint Database
 
