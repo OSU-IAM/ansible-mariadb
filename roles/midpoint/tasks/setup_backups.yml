@@ -1,0 +1,18 @@
+---
+- name: create backup script dir
+  file:
+    path: /opt/mariadb
+    state: directory
+
+- name: copy over backup script from template
+  template:
+    src: backup-mariadb.sh.j2
+    dest: /opt/mariadb/backup-mariadb.sh
+    mode: 0700
+
+- name: create cron job
+  cron:
+    name: "backup db"
+    minute: "0"
+    hour: "2"
+    job: "/opt/mariadb/backup-mariadb.sh"

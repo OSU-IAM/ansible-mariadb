@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+mysqldump --single-transaction --quick --add-locks {{ midpoint.db_name }} | gzip > {{ mariadb.backupsdir }}/{{ midpoint.db_name }}-backup-`date +%Y-%m-%d`.gz
+
+find {{ mariadb.backupsdir }}/ -mtime +3 -exec rm -f {} \;

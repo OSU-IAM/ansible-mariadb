@@ -3,6 +3,7 @@ mariadb:
   datadir: /data/mysql
   innodb_buffer_pool_size: changeme
   max_allowed_packet: changeme
+  backupsdir: /data/backups
 midpoint:
   midpoint_host: %.changeme.com
   db_name: changeme
