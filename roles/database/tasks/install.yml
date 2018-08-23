@@ -17,15 +17,14 @@
     init_datadir: true
 
 - name: check if MariaDB datadir exists
-  command: ls -la {{ mariadb.datadir }}
+  stat:
+    path: "{{ mariadb.datadir }}"
   register: datadir_check
-  ignore_errors: true
-  changed_when: false
 
 - name: set 'init_datadir' flag to false
   set_fact:
     init_datadir: false
-  when: datadir_check.rc == 0
+  when: datadir_check.stat.exists
 
 - name: create MariaDB datadir
   file:
