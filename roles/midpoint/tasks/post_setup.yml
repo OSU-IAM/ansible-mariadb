@@ -1,0 +1,5 @@
+---
+- name: install other packages
+  yum:
+    name: 'perl-DBD-MySQL'
+    state: present

@@ -1,3 +1,4 @@
 ---
 - import_tasks: setup_db.yml
 - import_tasks: setup_backups.yml
+- import_tasks: post_setup.yml
