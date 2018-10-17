@@ -57,7 +57,7 @@ midpoint:
   db_name: changeme
   db_username: changeme
   db_password: changeme
-  db_create_script_url: https://raw.githubusercontent.com/Evolveum/midpoint/v3.7.2/config/sql/_all/mysql-3.7-all.sql
+  db_create_script_url: https://raw.githubusercontent.com/Evolveum/midpoint/v3.8/config/sql/_all/mysql-3.8-all-utf8mb4.sql
 ```
 
 * `midpoint_host` (required) - hostname of midPoint application server that will connect to this database
